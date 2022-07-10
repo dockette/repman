@@ -1,4 +1,4 @@
-FROM buddy/repman:1.3.4
+FROM buddy/repman:1.4.0
 
 RUN apk add nginx tini --no-cache
 

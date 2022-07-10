@@ -20,7 +20,7 @@
 
 ## Usage
 
-Latest version: `dockette/repman:1.3.4`
+Latest version: `dockette/repman:1.4.0`
 
 [Example of docker-compose.yml](/docker-compose.yml)
 
@@ -48,7 +48,7 @@ services:
 
   app:
     << : *restart_policy
-    image: dockette/repman:1.3.4
+    image: dockette/repman:1.4.0
     command: /entrypoint-app.sh
     env_file: .env.docker
     ports:
@@ -62,7 +62,7 @@ services:
 
   consumer:
     << : *restart_policy
-    image: dockette/repman:1.3.4
+    image: dockette/repman:1.4.0
     command: /entrypoint-consumer.sh
     env_file: .env.docker
     volumes:
@@ -72,7 +72,7 @@ services:
 
   cron:
     << : *restart_policy
-    image: dockette/repman:1.3.4
+    image: dockette/repman:1.4.0
     command: /entrypoint-cron.sh
     env_file: .env.docker
     volumes:

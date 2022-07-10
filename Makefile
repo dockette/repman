@@ -1,4 +1,4 @@
-DOCKER_IMAGE ?= dockette/repman:1.3.4
+DOCKER_IMAGE ?= dockette/repman:1.4.0
 COMPOSE_ARGS ?= -f tests/docker-compose.yml
 
 .PHONY: build enter 
