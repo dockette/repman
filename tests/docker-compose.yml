@@ -1,0 +1,60 @@
+version: '3.4'
+
+x-restart-policy: &restart_policy
+  restart: unless-stopped
+
+services:
+  database:
+    << : *restart_policy
+    image: postgres:11.7-alpine
+    environment:
+      POSTGRES_USER: main
+      POSTGRES_PASSWORD: main
+      POSTGRES_DB: main
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "main", "-U", "main" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - .docker/postgres:/var/lib/postgresql/data
+
+  app:
+    << : *restart_policy
+    image: dockette/repman:1.3.4
+    command: /entrypoint-app.sh
+    env_file: 
+      - .env.docker
+      - .env.local
+    ports:
+      - 8080:80
+    volumes:
+      - .docker/app-var:/app/var
+      - .docker/nginx-logs:/var/log/nginx
+    depends_on:
+      database:
+        condition: service_healthy
+
+  consumer:
+    << : *restart_policy
+    image: dockette/repman:1.3.4
+    command: /entrypoint-consumer.sh
+    env_file: 
+      - .env.docker
+      - .env.local
+    volumes:
+      - .docker/app-var:/app/var
+    depends_on:
+      - app
+
+  cron:
+    << : *restart_policy
+    image: dockette/repman:1.3.4
+    command: /entrypoint-cron.sh
+    env_file: 
+      - .env.docker
+      - .env.local
+    volumes:
+      - .docker/app-var:/app/var
+    depends_on:
+      - app
