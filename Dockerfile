@@ -1,8 +1,7 @@
 FROM buddy/repman:1.4.0
 
 RUN apk add nginx tini --no-cache && \
-    rm -rf /app/var/log/* && \
-    rm -rf /app/var/cache/*
+    rm -rf /app/var/*
 
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 COPY ./cron/crontabs /var/spool/cron/crontabs
