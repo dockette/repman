@@ -20,7 +20,7 @@
 
 ## Usage
 
-Latest version: `dockette/repman:1.4.0`
+Latest version: `tests/dockette/repman:1.4.0`
 
 [Example of docker-compose.yml](/docker-compose.yml)
 
