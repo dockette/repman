@@ -4,7 +4,7 @@ RUN apk add nginx tini --no-cache && \
     rm -rf /app/var/*
 
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
-COPY ./cron/crontabs /var/spool/cron/crontabs
+COPY ./cron/root /etc/crontabs/root
 
 # S3 path style
 COPY ./patch/S3AdapterFactory.php /app/src/Service/Integration/Aws/S3AdapterFactory.php
